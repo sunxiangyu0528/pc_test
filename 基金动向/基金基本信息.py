@@ -37,7 +37,7 @@ class DB:
 class DB_Beta:
     def __init__(self):
         # 创建一个连接对象
-        self.conn = pymysql.connect(host="rm-uf678n3wgb0j1nth2.mysql.rds.aliyuncs.com",
+        self.conn = pymysql.connect(host="106.15.205.160",
                                     port=3306,
                                     user="beta_app_user",
                                     password="OrvjSp3VOqUPAW8K",

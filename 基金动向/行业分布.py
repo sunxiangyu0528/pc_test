@@ -64,16 +64,12 @@ class DB_Beta:
 
 
 if __name__ == '__main__':
-
     a = time.time()
     db = DB()  # 证券代码
     db_beta = DB_Beta()
-    sql = "SELECT * FROM wd_zx.WD_FUND_STOCK_RECORD wfsr WHERE cmp_code ='G107138.GS' and rpt_day ='2021-09-30';"
-    data = db.find_all(sql)
-    print(data)
-    # for i in data:
-    #     print(i["fund_code"])
-    #
-    sql2 = "SELECT stock_code FROM wd_zx.WD_FUND_STOCK_RECORD wfsr WHERE cmp_code ='G107138.GS' and rpt_day ='2021-09-30';"
-    data2 = db.find_all(sql2)
-    print(data2)
+
+    sql_zsz = "SELECT wfn.fund_code FROM wd_zx.WD_FUND_NAV wfn WHERE  wfn.com_code ='G160072.GS' and `day` ='2021-12-31'"
+    data_zsz = db.find_all(sql_zsz)
+    print(data_zsz)
+    for i in data_zsz:
+        sql1 = "SELECT * FROM zgzb_zx.TQ_SK_BASICINFO WHERE "

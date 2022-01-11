@@ -1,6 +1,6 @@
 import threading
 import time
-from pepbband.jijin import my_work
+from 基金动向.jijin import my_work
 
 
 exitFlag = 0

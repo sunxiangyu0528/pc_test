@@ -37,7 +37,7 @@ class DB:
 class DB_Beta:
     def __init__(self):
         # 创建一个连接对象
-        self.conn = pymysql.connect(host="rm-uf678n3wgb0j1nth2.mysql.rds.aliyuncs.com",
+        self.conn = pymysql.connect(host="106.15.205.160",
                                     port=3306,
                                     user="beta_app_user",
                                     password="OrvjSp3VOqUPAW8K",
@@ -75,7 +75,7 @@ if __name__ == '__main__':
     # print(data_comp)
     # li3 = []
     # for i in data_comp:
-    sql_zsz = "SELECT * FROM wd_zx.WD_FUND_COM_INFO wfci WHERE code ='G107138.GS'  and  enddate ='2021-12-25';"
+    sql_zsz = "SELECT * FROM wd_zx.WD_FUND_COM_INFO wfci WHERE code ='G160072.GS'  and  enddate ='2022-01-08';"
     data_zsz = db.find_all(sql_zsz)
     print(data_zsz)
     print("股票型-基金资产净值合计", data_zsz[0]["stockfundassetstotal"])
@@ -92,7 +92,7 @@ if __name__ == '__main__':
     # print("混合型-基金数量合计", data_zsz[0]["mixfundnumber"])
     # print("混合型+基金型-基金数量合计", data_zsz[0]["stockfundnumber"]+data_zsz[0]["mixfundnumber"])
     # 取出这个公司下面的所有基金
-    sql1 = "SELECT fund_code FROM wd_zx.WD_FUND_NAV wfn WHERE  wfn.com_code ='G107138.GS' and `day` ='2021-12-31';"
+    sql1 = "SELECT fund_code FROM wd_zx.WD_FUND_NAV wfn WHERE  wfn.com_code ='G160072.GS' and `day` ='2021-12-31';"
     data_1 = db.find_all(sql1)
     print("data_1===============",len(data_1),data_1)
     li1 = []
