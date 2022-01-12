@@ -1,2 +1,2 @@
-a='001818.OF'
-print(a[0:6])
+if None:
+    print("Hello")

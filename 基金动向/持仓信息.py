@@ -64,16 +64,10 @@ class DB_Beta:
 
 
 if __name__ == '__main__':
-
     a = time.time()
     db = DB()  # 证券代码
-    db_beta = DB_Beta()
-    sql = "SELECT * FROM wd_zx.WD_FUND_STOCK_RECORD wfsr WHERE cmp_code ='G107138.GS' and rpt_day ='2021-09-30';"
+    # db_beta = DB_Beta()
+    sql = "SELECT sum(proportiontoshareholdtocirculation) FROM wd_zx.WD_FUND_STOCK_RECORD wfsr WHERE cmp_code ='G107138.GS' and rpt_day ='2021-09-30' " \
+          " and stock_code like  '%688639%' and sync_day ='2021-12-31';"
     data = db.find_all(sql)
-    print(data)
-    # for i in data:
-    #     print(i["fund_code"])
-    #
-    sql2 = "SELECT stock_code FROM wd_zx.WD_FUND_STOCK_RECORD wfsr WHERE cmp_code ='G107138.GS' and rpt_day ='2021-09-30';"
-    data2 = db.find_all(sql2)
-    print(data2)
+    print("持股占流通股比", data[0]["sum(proportiontoshareholdtocirculation)"])

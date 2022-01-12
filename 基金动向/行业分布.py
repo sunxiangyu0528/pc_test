@@ -64,12 +64,28 @@ class DB_Beta:
 
 
 if __name__ == '__main__':
+    cmp_code = 'G107138.GS'
     a = time.time()
     db = DB()  # 证券代码
-    db_beta = DB_Beta()
+    # db_beta = DB_Beta()
 
-    sql_zsz = "SELECT wfn.fund_code FROM wd_zx.WD_FUND_NAV wfn WHERE  wfn.com_code ='G160072.GS' and `day` ='2021-12-31'"
-    data_zsz = db.find_all(sql_zsz)
-    print(data_zsz)
-    for i in data_zsz:
-        sql1 = "SELECT * FROM zgzb_zx.TQ_SK_BASICINFO WHERE "
+    sql1 = "SELECT stock_code FROM wd_zx.WD_FUND_STOCK_RECORD wfsr WHERE cmp_code =cmp_code and rpt_day ='2021-09-30' and stock_code  not like '%HK'  "
+    data1 = db.find_all(sql1)
+    print(data1)
+    li = []
+    dic1 = {}
+    sum = 0
+    for i in data1:
+        i_code = i["stock_code"][0:6]
+        sql2 = "SELECT tsb.SWLEVEL1NAME,tsb.SWLEVEL1CODE,tsb.SYMBOL  FROM zgzb_zx.TQ_SK_BASICINFO tsb WHERE SYMBOL like '%{}%'".format(
+            i_code)
+        data2 = db.find_all(sql2)
+        print(data2)
+        #  计算农林牧渔行业净值
+        if data2[0]["SWLEVEL1NAME"] == "农林牧渔":
+            sql3 = "SELECT * FROM wd_zx.WD_FUND_STOCK_RECORD wfsr WHERE cmp_code =cmp_code and rpt_day ='2021-09-30' and stock_code  not like '%HK' and " \
+                   "stock_code like '{}%'".format(data2[0]["SYMBOL"])
+            data3 = db.find_all(sql3)
+            print(data3[0]["marketvalueofstockholdings"])
+            sum = sum + data3[0]["marketvalueofstockholdings"]
+            print("sum-----", sum)
