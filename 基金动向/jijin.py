@@ -75,7 +75,7 @@ if __name__ == '__main__':
     # print(data_comp)
     # li3 = []
     # for i in data_comp:
-    sql_zsz = "SELECT * FROM wd_zx.WD_FUND_COM_INFO wfci WHERE code ='G160072.GS'  and  enddate ='2022-01-08';"
+    sql_zsz = "SELECT * FROM wd_zx.WD_FUND_COM_INFO wfci WHERE code ='G107138.GS'  and  enddate ='2022-01-08';"
     data_zsz = db.find_all(sql_zsz)
     print(data_zsz)
     print("股票型-基金资产净值合计", data_zsz[0]["stockfundassetstotal"])
@@ -86,15 +86,11 @@ if __name__ == '__main__':
     if data_zsz[0]["mixfundassetstotal"] == None:
         data_zsz[0]["mixfundassetstotal"] = 0
     print("混合型+股票型=基金资金净值合计", data_zsz[0]["mixfundassetstotal"] + data_zsz[0]["stockfundassetstotal"])
-    # print("股票型-基金份额合计", data_zsz[0]["stockfundsharetotal"])
-    # print("混合型-基金份额合计", data_zsz[0]["mixfundsharetotal"])
-    # print("股票型-基金数量合计", data_zsz[0]["stockfundnumber"])
-    # print("混合型-基金数量合计", data_zsz[0]["mixfundnumber"])
-    # print("混合型+基金型-基金数量合计", data_zsz[0]["stockfundnumber"]+data_zsz[0]["mixfundnumber"])
+
     # 取出这个公司下面的所有基金
-    sql1 = "SELECT fund_code FROM wd_zx.WD_FUND_NAV wfn WHERE  wfn.com_code ='G160072.GS' and `day` ='2021-12-31';"
+    sql1 = "SELECT fund_code FROM wd_zx.WD_FUND_NAV wfn WHERE  wfn.com_code ='G107138.GS' and `day` ='2022-01-07';"
     data_1 = db.find_all(sql1)
-    print("data_1===============",len(data_1),data_1)
+    print("data_1===============", len(data_1), data_1)
     li1 = []
 
     li2 = []
@@ -108,18 +104,16 @@ if __name__ == '__main__':
             i["fund_code"][0:6])
 
         data_2 = db_beta.find_all(sql2)
-        sql3 = "SELECT fund_code,nav FROM wd_zx.WD_FUND_NAV wfn WHERE  wfn.fund_code ='{}' and `day` ='2021-12-31'".format(
+        sql3 = "SELECT fund_code,nav FROM wd_zx.WD_FUND_NAV wfn WHERE  wfn.fund_code ='{}' and `day` ='2022-01-07'".format(
             i["fund_code"])
         date3 = db.find_all(sql3)
-
         print("基金{}的累计单位净值是：".format(i["fund_code"]), date3[0]["nav"])
-        # print(data_2, type(data_2))
         # 当基金成立日期没值的时候，跳过这个基金
         if type(data_2) == tuple:
             continue
         print("基金{}成立日期是：".format(i["fund_code"]), data_2[0]["setup_date"])
         # 计算基金成立了多少年
-        aaaaa = date_minus(data_2[0]["setup_date"], "20220106")
+        aaaaa = date_minus(data_2[0]["setup_date"], "20220108")
         print("基金成立了多少年", aaaaa)
         # 单基金平均年化收益=(累计单位净值-1)/基金成立年限
 

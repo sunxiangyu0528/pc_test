@@ -64,10 +64,30 @@ class DB_Beta:
 
 
 if __name__ == '__main__':
+
     a = time.time()
     db = DB()  # 证券代码
-    # db_beta = DB_Beta()
-    sql = "SELECT sum(proportiontoshareholdtocirculation) FROM wd_zx.WD_FUND_STOCK_RECORD wfsr WHERE cmp_code ='G107138.GS' and rpt_day ='2021-09-30' " \
-          " and stock_code like  '%688639%' and sync_day ='2021-12-31';"
+    db_beta = DB_Beta()
+    sql = "SELECT wfsr.stock_code ,wfsr.* FROM wd_zx.WD_FUND_STOCK_RECORD wfsr WHERE cmp_code ='G107138.GS' and rpt_day ='2021-09-30' and stock_code  not like '%HK' "
     data = db.find_all(sql)
-    print("持股占流通股比", data[0]["sum(proportiontoshareholdtocirculation)"])
+    print(data)
+    li = []
+    sum = 0
+    for i in data:
+        print(i)
+        i_code = i["stock_code"][0:6]
+        print(i_code)
+        sql1 = "SELECT tsb.SWLEVEL1CODE ,tsb.SWLEVEL1NAME ,tsb.SYMBOL FROM zgzb_zx.TQ_SK_BASICINFO tsb WHERE SYMBOL like '%{}%';".format(
+            i_code)
+        data1 = db.find_all(sql1)
+        print(data1)
+        if data1[0]["SWLEVEL1NAME"] == "农林牧渔":
+            li.append(data1[0]["SYMBOL"])
+            sql2 = "SELECT wfsr.stock_code ,wfsr.* FROM wd_zx.WD_FUND_STOCK_RECORD wfsr WHERE cmp_code ='G107138.GS' and rpt_day ='2021-09-30' and stock_code like '%{}%' and fund_code='{}'".format(
+                data1[0]["SYMBOL"], i["fund_code"])
+            print("sql2====", sql2)
+            data2 = db.find_all(sql2)
+            print("data2====", data2)
+            print("持股数量为：", data2[0]["hold_number"])
+            sql3 = ""
+            db_beta.find_all()
