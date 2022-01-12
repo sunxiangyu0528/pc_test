@@ -4,7 +4,6 @@ from common.Base import date_minus
 
 import time
 
-
 class DB:
     def __init__(self):
         # 创建一个连接对象
@@ -67,9 +66,12 @@ if __name__ == '__main__':
     cmp_code = 'G107138.GS'
     a = time.time()
     db = DB()  # 证券代码
-    # db_beta = DB_Beta()
+    sql4 = "SELECT * FROM wd_zx.WD_FUND_COM_INFO wfci WHERE code ='G107138.GS'  and  enddate ='2021-12-31';"
+    data4 = db.find_all(sql4)
+    sum_total  =data4[0]["stockfundassetstotal"]+data4[0]["mixfundassetstotal"]
+    print("总市值是：",data4[0]["stockfundassetstotal"]+data4[0]["mixfundassetstotal"])
 
-    sql1 = "SELECT stock_code FROM wd_zx.WD_FUND_STOCK_RECORD wfsr WHERE cmp_code =cmp_code and rpt_day ='2021-09-30' and stock_code  not like '%HK'  "
+    sql1 = "SELECT stock_code,wfsr.* FROM wd_zx.WD_FUND_STOCK_RECORD wfsr WHERE cmp_code ='G107138.GS' and rpt_day ='2021-09-30' and stock_code  not like '%HK'  "
     data1 = db.find_all(sql1)
     print(data1)
     li = []
@@ -80,12 +82,24 @@ if __name__ == '__main__':
         sql2 = "SELECT tsb.SWLEVEL1NAME,tsb.SWLEVEL1CODE,tsb.SYMBOL  FROM zgzb_zx.TQ_SK_BASICINFO tsb WHERE SYMBOL like '%{}%'".format(
             i_code)
         data2 = db.find_all(sql2)
-        print(data2)
+        if data2[0]["SWLEVEL1NAME"] == "农林牧渔":
+            print(data2[0]["SYMBOL"])
         #  计算农林牧渔行业净值
         if data2[0]["SWLEVEL1NAME"] == "农林牧渔":
-            sql3 = "SELECT * FROM wd_zx.WD_FUND_STOCK_RECORD wfsr WHERE cmp_code =cmp_code and rpt_day ='2021-09-30' and stock_code  not like '%HK' and " \
-                   "stock_code like '{}%'".format(data2[0]["SYMBOL"])
+            sql3 = "SELECT * FROM wd_zx.WD_FUND_STOCK_RECORD wfsr WHERE cmp_code ='G107138.GS' and rpt_day ='2021-09-30' and fund_code = '{}' and " \
+                   "stock_code like '%{}%' ".format(i["fund_code"], data2[0]["SYMBOL"])
             data3 = db.find_all(sql3)
+            print(sql3)
             print(data3[0]["marketvalueofstockholdings"])
             sum = sum + data3[0]["marketvalueofstockholdings"]
             print("sum-----", sum)
+            print(sum)
+            print("占净值比",sum/sum_total)
+"""
+002311   16     
+002714   5
+600195    6
+300119   4
+
+
+"""
