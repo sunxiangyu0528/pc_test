@@ -1,6 +1,6 @@
 import threading
 import time
-from 基金动向.jijin import my_work
+from 基金动向.机构信息列表1 import my_work
 
 
 exitFlag = 0

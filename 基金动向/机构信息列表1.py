@@ -91,6 +91,7 @@ if __name__ == '__main__':
     sql1 = "SELECT fund_code FROM wd_zx.WD_FUND_NAV wfn WHERE  wfn.com_code ='G107138.GS' and `day` ='2022-01-07';"
     data_1 = db.find_all(sql1)
     print("data_1===============", len(data_1), data_1)
+
     li1 = []
 
     li2 = []
@@ -116,12 +117,12 @@ if __name__ == '__main__':
         aaaaa = date_minus(data_2[0]["setup_date"], "20220108")
         # 四舍五入成立的年数
         print(aaaaa)
-        bbbb =round(aaaaa,3)
+        bbbb =round(aaaaa,4)
         print("基金成立了多少年", bbbb)
         # 单基金平均年化收益=(累计单位净值-1)/基金成立年限
         cccc = round(float((date3[0]["nav"] - 1)) / aaaaa,2)
-        print("cccccccccc",cccc)
-        # print("单基金平均年化收益:", float((date3[0]["nav"] - 1)) / aaaaa)
+        print("单基金平均年化收益",cccc)
+        print("单基金平均年化收益:", float((date3[0]["nav"] - 1)) / aaaaa)
         # 所有的基金相加
         # sum = sum + float((date3[0]["nav"] - 1)) / aaaaa
         sum =  sum + cccc
@@ -131,6 +132,7 @@ if __name__ == '__main__':
         # print(li2)
         print("li2===========", len(li2), li2)
     print("li2sort之后的结果", li2)
+    print("除以基金数量的结果",sum/len(li2))
 
 # 得到所有基金代码
 b = time.time()

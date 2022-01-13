@@ -64,7 +64,6 @@ class DB_Beta:
 
 
 if __name__ == '__main__':
-    cmp_code = 'G107138.GS'
     a = time.time()
     db = DB()  # 证券代码
     sql4 = "SELECT * FROM wd_zx.WD_FUND_COM_INFO wfci WHERE code ='G160072.GS'  and  enddate ='2021-09-30';"
