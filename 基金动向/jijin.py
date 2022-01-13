@@ -114,13 +114,18 @@ if __name__ == '__main__':
         print("基金{}成立日期是：".format(i["fund_code"]), data_2[0]["setup_date"])
         # 计算基金成立了多少年
         aaaaa = date_minus(data_2[0]["setup_date"], "20220108")
-        print("基金成立了多少年", aaaaa)
+        # 四舍五入成立的年数
+        print(aaaaa)
+        bbbb =round(aaaaa,3)
+        print("基金成立了多少年", bbbb)
         # 单基金平均年化收益=(累计单位净值-1)/基金成立年限
-
-        print("单基金平均年化收益:", float((date3[0]["nav"] - 1)) / aaaaa)
+        cccc = round(float((date3[0]["nav"] - 1)) / aaaaa,2)
+        print("cccccccccc",cccc)
+        # print("单基金平均年化收益:", float((date3[0]["nav"] - 1)) / aaaaa)
         # 所有的基金相加
-        sum = sum + float((date3[0]["nav"] - 1)) / aaaaa
-        print("{}公司所有基金的平均年华收益率:".format(data_zsz[0]["code"]), sum)
+        # sum = sum + float((date3[0]["nav"] - 1)) / aaaaa
+        sum =  sum + cccc
+        print("{}公司所有基金的平均年华收益率:".format(data_zsz[0]["code"]), round(sum,2))
         li2.append(sum)
         # li2.sort()
         # print(li2)
