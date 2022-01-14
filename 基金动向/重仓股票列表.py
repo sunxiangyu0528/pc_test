@@ -1,9 +1,5 @@
 import pymysql
-
-from common.Base import date_minus
-
-import time
-
+import requests
 
 class DB:
     def __init__(self):
@@ -35,4 +31,6 @@ class DB:
 
 
 if __name__ == '__main__':
-    pass
+    json_data = {
+
+    }

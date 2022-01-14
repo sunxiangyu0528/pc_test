@@ -92,15 +92,16 @@ if __name__ == '__main__':
         sql2 = "SELECT SUM(marketvalueofstockholdings)   FROM wd_zx.WD_FUND_STOCK_RECORD wfsr WHERE cmp_code ='G107138.GS'  " \
                "and rpt_day ='2021-09-30' and fund_code ='{}'".format(i["fund_code"])
         data2 = db.find_all(sql2)
-        sql3 = "SELECT nav FROM wd_zx.WD_FUND_NAV wfn WHERE  wfn.com_code ='G107138.GS' and day ='2021-09-30' and fund_code ='{}'".format(
+        # 改变的只有单个基金累计净值，改day的日期就好了！！！！！！！！！！
+        sql3 = "SELECT nav FROM wd_zx.WD_FUND_NAV wfn WHERE  wfn.com_code ='G107138.GS' and day ='2021-09-17' and fund_code ='{}'".format(
             i["fund_code"])
-        print(sql3, "111111111")
+
         # 取出每个基金的累计净值
         data3 = db.find_all(sql3)
-        print(data3, "2222222222")
-        if data3 == tuple:
-            print("{}基金的是累积净值没取到".format(i["fund_code"]))
-
+        if data3 == ():
+            print("data3的值没取到")
+            data3 = [{"nav": 0}]
+        print(data3, type(data3), "333333333")
         print("{}基金的是累积净值".format(i["fund_code"]), data3[0]["nav"])
         # print("--------",data2)
         sum_chigu = data2[0]["SUM(marketvalueofstockholdings)"]
@@ -115,4 +116,9 @@ if __name__ == '__main__':
         print("单个公司业绩", one_yeji)
         sum_yeji = one_yeji + sum_yeji
 
-    print("当期公司业绩",sum_yeji)
+    print("当期公司业绩", sum_yeji)
+
+b = 10458.22008972317881548332252   # 17
+a = 10397.39894033636401567083832  # 24
+
+print((a-b)/b)

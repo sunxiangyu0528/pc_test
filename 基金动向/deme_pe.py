@@ -32,8 +32,9 @@ class DB:
 
 if __name__ == '__main__':
     db = DB()  # 证券代码
-    sql = "SELECT tsd.PETTM FROM zgzb_zx.TQ_SK_FININDIC tsd WHERE ISVALID = 1 and tsd.SYMBOL = 600807   and TRADEDATE BETWEEN '20181229' and '20211228'"
+    sql = "SELECT tsd.PETTM FROM zgzb_zx.TQ_SK_FININDIC tsd WHERE ISVALID = 1 and tsd.SYMBOL = 600519   and TRADEDATE BETWEEN '20220106' and '20220112'"
     data = db.find_all(sql=sql)
+    print(data)
 
     li1 = []
     # 得到的而每一个Pettm存储起来
@@ -44,7 +45,7 @@ if __name__ == '__main__':
             li1.append(a)
     # 从小到大排序
     li1.sort()
-    li1.insert(0,li1[0])
+    # li1.insert(0,li1[0])
     print("PETTM总个数为：", li1)
     #     li1.append(i["PETTM"])
     print(len(li1))
