@@ -24,6 +24,7 @@ class GetMessage(object):
         print(li)
         return li
 
+    def get_stock_code(self):
 
 
 if __name__ == '__main__':
