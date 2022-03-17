@@ -1,4 +1,5 @@
 from common.Basedb import DB, DB_Beta
+from common.Basedb import DB, DB_Beta
 
 db = DB()
 db_beta = DB_Beta()
